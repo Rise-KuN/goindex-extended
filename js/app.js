@@ -5563,57 +5563,6 @@ document.write(
   "<style>.dummyclass3{max-width: 570px}@media screen and (max-width:980px){.dummyclass3{display:none}}</style>"
 );
 
-$(document).ready(function () {
-  // Function to get cookie value
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  // Check if user is logged in by checking a specific cookie
-  const isLoggedIn = getCookie('wordpress_logged_in');
-
-  // Function to create the menu with buttons
-  function createMenu() {
-    let menuHtml = `
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>`;
-
-    if (isLoggedIn) {
-      menuHtml += `
-        <li><a href="javascript:void(0);" id="logoutButton">Log Out</a></li>`;
-    } else {
-      menuHtml += `
-        <li><a href="https://www.anime-san.com/wp-login.php" id="loginButton">Log In</a></li>
-        <li><a href="https://www.anime-san.com/wp-login.php?action=register" id="registerButton">Register</a></li>`;
-    }
-
-    menuHtml += `
-      </ul>`;
-
-    $('#menu').html(menuHtml);
-  }
-
-  // Create the menu
-  createMenu();
-
-  // Handle button clicks
-  $('#loginButton').click(function () {
-    window.open('https://www.anime-san.com/wp-login.php', '_blank');
-  });
-
-  $('#registerButton').click(function () {
-    window.open('https://www.anime-san.com/wp-login.php?action=register', '_blank');
-  });
-
-  $('#logoutButton').click(function () {
-    // Assuming logout URL is known and accessible
-    window.location.href = 'https://www.anime-san.com/wp-login.php?action=logout';
-  });
-});
-
 function init() {
   document.siteName = $("title").html();
   $("body").addClass(
@@ -6556,4 +6505,55 @@ $(function () {
   init();
   var path = window.location.pathname;
   render(path);
+});
+
+$(document).ready(function () {
+  // Function to get cookie value
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // Check if user is logged in by checking a specific cookie
+  const isLoggedIn = getCookie('wordpress_logged_in');
+
+  // Function to create the menu with buttons
+  function createMenu() {
+    let menuHtml = `
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>`;
+
+    if (isLoggedIn) {
+      menuHtml += `
+        <li><a href="javascript:void(0);" id="logoutButton">Log Out</a></li>`;
+    } else {
+      menuHtml += `
+        <li><a href="https://www.anime-san.com/wp-login.php" id="loginButton">Log In</a></li>
+        <li><a href="https://www.anime-san.com/wp-login.php?action=register" id="registerButton">Register</a></li>`;
+    }
+
+    menuHtml += `
+      </ul>`;
+
+    $('#menu').html(menuHtml);
+  }
+
+  // Create the menu
+  createMenu();
+
+  // Handle button clicks
+  $('#loginButton').click(function () {
+    window.open('https://www.anime-san.com/wp-login.php', '_blank');
+  });
+
+  $('#registerButton').click(function () {
+    window.open('https://www.anime-san.com/wp-login.php?action=register', '_blank');
+  });
+
+  $('#logoutButton').click(function () {
+    // Assuming logout URL is known and accessible
+    window.location.href = 'https://www.anime-san.com/wp-login.php?action=logout';
+  });
 });
