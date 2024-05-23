@@ -6525,7 +6525,7 @@ $(document).ready(function () {
     } else {
       const redirectUrl = encodeURIComponent(window.location.href);
       menuHtml += `
-        <li><a href="https://www.anime-san.com/?redirect_after_login=${redirectUrl}" id="loginButton">Log In</a></li>
+        <li><a href="https://www.anime-san.com/wp-login.php?redirect_after_login=${redirectUrl}" id="loginButton">Log In</a></li>
         <li><a href="https://www.anime-san.com/wp-login.php?action=register&redirect_after_login=${redirectUrl}" id="registerButton">Register</a></li>`;
     }
 
@@ -6561,7 +6561,7 @@ $(document).ready(function () {
   // Handle button clicks
   $('#loginButton').click(function () {
     const redirectUrl = encodeURIComponent(window.location.href);
-    window.open(`https://www.anime-san.com/?redirect_after_login=${redirectUrl}`, '_blank');
+    window.open(`https://www.anime-san.com/wp-login.php?redirect_after_login=${redirectUrl}`, '_blank');
   });
 
   $('#registerButton').click(function () {
