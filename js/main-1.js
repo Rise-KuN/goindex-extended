@@ -6515,11 +6515,8 @@ $(document).ready(function () {
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
 
-  // Check if user is logged in by checking a specific cookie
-  const isLoggedIn = getCookie('auth_token');
-
   // Function to create the menu with buttons
-  function createMenu() {
+  function createMenu(isLoggedIn) {
     let menuHtml = `<ul>`;
 
     if (isLoggedIn) {
@@ -6538,8 +6535,28 @@ $(document).ready(function () {
     $('#menu').html(menuHtml);
   }
 
-  // Create the menu
-  createMenu();
+  // Check if user is logged in by looking for the WordPress login cookie
+  const wordpressLoggedInCookie = document.cookie.split('; ').find(row => row.startsWith('wordpress_logged_in'));
+  if (wordpressLoggedInCookie) {
+    // Fetch the auth token from the custom endpoint
+    fetch('https://www.anime-san.com/wp-json/fetch-auth-token/v1/get', {
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.auth_token) {
+        document.cookie = `auth_token=${data.auth_token}; path=/`;
+        createMenu(true); // User is logged in
+      } else {
+        createMenu(false); // User is not logged in
+      }
+    })
+    .catch(() => {
+      createMenu(false); // User is not logged in
+    });
+  } else {
+    createMenu(false); // User is not logged in
+  }
 
   // Handle button clicks
   $('#loginButton').click(function () {
